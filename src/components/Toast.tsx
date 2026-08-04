@@ -9,7 +9,8 @@ export function Toast({ message, onClose }: ToastProps) {
   if (!message) return null;
 
   return (
-    <div className="absolute left-0 right-0 top-0 z-50 px-3 pt-[max(10px,env(safe-area-inset-top))]">
+    <div className="absolute left-0 right-0 top-0 z-50 px-4 pt-[max(12px,env(safe-area-inset-top))]">
+
       <div className="flex items-center gap-2 rounded-xl bg-speak-danger-bg px-3 py-2.5 text-[13px] font-medium text-speak-danger shadow-sm">
         <button
           type="button"

@@ -3,8 +3,9 @@
 @tailwind utilities;
 
 :root {
-  --background: #e8ecf4;
+  --background: #f2f3f7;
   --foreground: #111827;
+  --app-max-width: 480px;
 }
 
 html,

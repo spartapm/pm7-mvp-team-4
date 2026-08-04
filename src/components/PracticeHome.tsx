@@ -16,7 +16,8 @@ export function PracticeHome() {
 
   return (
     <div className="flex h-full flex-col bg-[#F7F8FA]">
-      <div className="flex-1 overflow-y-auto px-5 pb-24 pt-14">
+      <div className="flex-1 overflow-y-auto px-5 pb-6 pt-[max(1.25rem,env(safe-area-inset-top))]">
+
         <h1 className="text-[32px] font-bold tracking-tight text-speak-ink">
           연습
         </h1>
@@ -71,7 +72,8 @@ export function PracticeHome() {
 
             <Link
               href="/review"
-              className="relative block rounded-[22px] bg-white p-4 shadow-card ring-2 ring-speak-blue/30 ring-offset-2 ring-offset-[#F7F8FA]"
+              className="relative block rounded-[22px] bg-white p-4 shadow-card ring-2 ring-speak-blue/25"
+
             >
               <span className="absolute -right-1 -top-2 rounded-md bg-speak-blue px-1.5 py-0.5 text-[10px] font-bold text-white">
                 NEW

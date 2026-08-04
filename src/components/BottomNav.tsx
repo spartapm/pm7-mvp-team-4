@@ -122,8 +122,8 @@ export function BottomNav() {
   if (!show) return null;
 
   return (
-    <nav className="absolute bottom-0 left-0 right-0 z-40 border-t border-speak-line bg-white/95 backdrop-blur">
-      <div className="grid h-[64px] grid-cols-5 px-1 pb-[env(safe-area-inset-bottom)]">
+    <nav className="shrink-0 border-t border-speak-line bg-white/95 backdrop-blur">
+      <div className="grid h-[56px] grid-cols-5 px-1 pb-[env(safe-area-inset-bottom)] sm:h-[60px]">
         {tabs.map((tab) => {
           const active =
             pathname === tab.href ||

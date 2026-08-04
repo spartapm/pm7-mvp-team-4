@@ -58,7 +58,8 @@ export function BookmarksScreen() {
         backHref="/practice"
       />
 
-      <div className="scrollbar-hide flex-1 overflow-y-auto px-5 pb-24 pt-4">
+      <div className="scrollbar-hide flex-1 overflow-y-auto px-5 pb-6 pt-4">
+
         {sentences.length === 0 ? (
           <div className="mt-16 text-center">
             <p className="text-[16px] font-semibold text-speak-ink">

@@ -1,6 +1,6 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Noto_Sans_KR } from "next/font/google";
-import { PhoneShell } from "@/components/PhoneShell";
+import { AppShell } from "@/components/AppShell";
 import "./globals.css";
 
 const notoSansKr = Noto_Sans_KR({
@@ -15,6 +15,13 @@ export const metadata: Metadata = {
   description: "스픽 레벨·코스별 학습 문장 복습 MVP 프로토타입",
 };
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  viewportFit: "cover",
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -23,7 +30,7 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body className={`${notoSansKr.variable} ${notoSansKr.className} antialiased`}>
-        <PhoneShell>{children}</PhoneShell>
+        <AppShell>{children}</AppShell>
       </body>
     </html>
   );

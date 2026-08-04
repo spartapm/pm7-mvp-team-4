@@ -30,12 +30,12 @@ export function PageHeader({
   };
 
   return (
-    <header className="px-5 pt-12">
+    <header className="shrink-0 px-5 pt-[max(1rem,env(safe-area-inset-top))]">
       <button
         type="button"
         aria-label="뒤로가기"
         onClick={handleBack}
-        className="-ml-1 mb-3 flex h-9 w-9 items-center justify-center rounded-full text-speak-ink"
+        className="-ml-1 mb-2 flex h-9 w-9 items-center justify-center rounded-full text-speak-ink"
       >
         <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
           <path
