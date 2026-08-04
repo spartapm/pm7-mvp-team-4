@@ -1,36 +1,28 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# pm7-mvp-team-4 — Speak 레벨·코스 복습 프로토타입
 
-## Getting Started
+스픽(Speak) **레벨 및 코스별 학습 문장 복습** MVP 프로토타입입니다.  
+기능/기획 명세서의 핵심 플로우를 Next.js 14로 구현했습니다.
 
-First, run the development server:
+## 실행
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+[http://localhost:3704](http://localhost:3704) 에서 확인할 수 있습니다.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 구현 범위
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| 화면 | 경로 | 내용 |
+| --- | --- | --- |
+| 연습 목록 | `/practice` | NEW 배지와 함께 `레벨 및 코스 선택` 진입 |
+| 레벨/코스 선택 | `/review` | 아코디언 + 잠금 유닛/챕터 |
+| 문장 리스트 | `/review/sentences` | 영·한 병기, 음성 재생, 북마크 |
+| 저장된 문장 | `/bookmarks` | 북마크 저장소 연동 |
 
-## Learn More
+## 데모 팁
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **음성 오류**: `왕초보 > 간단한 잡담`의 `How's the weather in Sydney?`
+- **북마크 오류**: 같은 유닛의 `I usually hang out with friends.`
+- 음성은 Web Speech API(브라우저 TTS)로 재생됩니다.

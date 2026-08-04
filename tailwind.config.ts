@@ -9,8 +9,28 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        speak: {
+          blue: "#1746FC",
+          "blue-soft": "#E8EEFF",
+          "blue-muted": "#A8B8F5",
+          ink: "#111827",
+          muted: "#8B8B95",
+          line: "#ECECF0",
+          soft: "#F4F5F7",
+          green: "#1DB87A",
+          orange: "#FF8A3D",
+          pink: "#FF5C8A",
+          purple: "#7B6CFF",
+          danger: "#E5484D",
+          "danger-bg": "#FEECEC",
+        },
+      },
+      boxShadow: {
+        card: "0 2px 12px rgba(17, 24, 39, 0.06)",
+        phone: "0 24px 64px rgba(17, 24, 39, 0.18)",
+      },
+      fontFamily: {
+        sans: ["var(--font-pretendard)", "system-ui", "sans-serif"],
       },
     },
   },
