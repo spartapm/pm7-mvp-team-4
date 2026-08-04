@@ -4,20 +4,29 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { loadBookmarkIds } from "@/lib/bookmarks";
+import {
+  getLevelCourseCardDescription,
+  hasStartedCourseLesson,
+  loadIsPremium,
+} from "@/lib/user";
 
 export function PracticeHome() {
   const pathname = usePathname();
   const [savedCount, setSavedCount] = useState(0);
+  const [cardDescription, setCardDescription] = useState(
+    "원하는 레벨과 코스를 선택해 자유롭게 복습하세요."
+  );
 
   useEffect(() => {
     setSavedCount(loadBookmarkIds().length);
+    const isPremium = loadIsPremium();
+    const started = hasStartedCourseLesson();
+    setCardDescription(getLevelCourseCardDescription(isPremium, started));
   }, [pathname]);
-
 
   return (
     <div className="flex h-full flex-col bg-[#F7F8FA]">
       <div className="flex-1 overflow-y-auto px-5 pb-6 pt-[max(1.25rem,env(safe-area-inset-top))]">
-
         <h1 className="text-[32px] font-bold tracking-tight text-speak-ink">
           연습
         </h1>
@@ -72,25 +81,26 @@ export function PracticeHome() {
 
             <Link
               href="/review"
-              className="relative block rounded-[22px] bg-white p-4 shadow-card ring-2 ring-speak-blue/25"
-
+              className="relative block rounded-[22px] bg-white p-4 shadow-card"
             >
-              <span className="absolute -right-1 -top-2 rounded-md bg-speak-blue px-1.5 py-0.5 text-[10px] font-bold text-white">
+              {/* NEW: 왼쪽 상단 */}
+              <span className="absolute -left-1 -top-2 rounded-md bg-speak-blue px-1.5 py-0.5 text-[10px] font-bold text-white">
                 NEW
               </span>
+              {/* 프리미엄: 오른쪽 (프리미엄 플러스 자리) */}
+              <PremiumBadge label="프리미엄" />
               <div className="flex items-center gap-3">
                 <IconCircle className="bg-speak-blue">
                   <BookIcon />
                 </IconCircle>
-                <div className="min-w-0 flex-1">
+                <div className="min-w-0 flex-1 pr-16">
                   <p className="text-[16px] font-bold text-speak-ink">
                     레벨 및 코스 선택
                   </p>
                   <p className="mt-0.5 text-[13px] text-speak-muted">
-                    상황별 필수 표현을 복습하기
+                    {cardDescription}
                   </p>
                 </div>
-                <ChevronRight />
               </div>
             </Link>
 
@@ -110,12 +120,11 @@ export function PracticeHome() {
                     {savedCount}개 저장됨
                   </p>
                 </div>
-                <ChevronRight />
               </div>
             </Link>
 
             <div className="relative rounded-[22px] bg-white p-4 shadow-card">
-              <PremiumBadge />
+              <PremiumBadge label="프리미엄 플러스" />
               <div className="flex items-center gap-3">
                 <IconCircle className="bg-[#C5CAD3]">
                   <StarIcon />
@@ -130,7 +139,7 @@ export function PracticeHome() {
             </div>
 
             <div className="relative rounded-[22px] bg-white p-4 shadow-card">
-              <PremiumBadge />
+              <PremiumBadge label="프리미엄 플러스" />
               <div className="flex items-center gap-3">
                 <IconCircle className="bg-gradient-to-br from-[#6C8CFF] to-[#9B6CFF]">
                   <SparkleIcon />
@@ -187,25 +196,11 @@ function IconCircle({
   );
 }
 
-function PremiumBadge() {
+function PremiumBadge({ label }: { label: string }) {
   return (
     <span className="absolute right-3 top-3 rounded-full bg-gradient-to-r from-[#6C8CFF] to-[#B06CFF] px-2 py-0.5 text-[9px] font-bold text-white">
-      프리미엄 플러스
+      {label}
     </span>
-  );
-}
-
-function ChevronRight() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-      <path
-        d="M6 3.5 10.5 8 6 12.5"
-        stroke="#C0C4CE"
-        strokeWidth="1.7"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
   );
 }
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
   getAllSentences,
   type Sentence,
@@ -15,6 +15,7 @@ export function BookmarksScreen() {
   const [bookmarkIds, setBookmarkIds] = useState<string[]>([]);
   const [playingId, setPlayingId] = useState<string | null>(null);
   const [toast, setToast] = useState<string | null>(null);
+  const clearToast = useCallback(() => setToast(null), []);
 
   useEffect(() => {
     setBookmarkIds(loadBookmarkIds());
@@ -31,7 +32,9 @@ export function BookmarksScreen() {
       setPlayingId(null);
       return;
     }
-    const result = playSentence(sentence, () => setPlayingId(null));
+    const result = playSentence(sentence, () => {
+      setPlayingId((current) => (current === sentence.id ? null : current));
+    });
     if (!result.ok) {
       setPlayingId(null);
       setToast(result.error);
@@ -51,7 +54,7 @@ export function BookmarksScreen() {
 
   return (
     <div className="relative flex h-full flex-col bg-white">
-      <Toast message={toast} onClose={() => setToast(null)} />
+      <Toast message={toast} onClose={clearToast} />
       <PageHeader
         title="저장된 문장 보기"
         description="북마크로 저장한 문장을 다시 복습할 수 있어요."

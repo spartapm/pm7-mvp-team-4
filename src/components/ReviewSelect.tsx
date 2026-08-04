@@ -1,11 +1,14 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { getStudiedCourses, getStudiedLevels } from "@/lib/data";
 import { CefrBadge } from "./CefrBadge";
 import { PageHeader } from "./PageHeader";
+import { Toast } from "./Toast";
+
+const LOCKED_TOAST = "완료한 학습만 복습이 가능합니다.";
 
 export function ReviewSelect() {
   const router = useRouter();
@@ -13,29 +16,33 @@ export function ReviewSelect() {
   const levels = getStudiedLevels();
   const courses = getStudiedCourses();
   const [openId, setOpenId] = useState<string | null>(null);
+  const [toast, setToast] = useState<string | null>(null);
+
+  const clearToast = useCallback(() => setToast(null), []);
 
   useEffect(() => {
     const open = params.get("open");
     if (open) setOpenId(open);
   }, [params]);
 
+  /** 다른 카드 클릭 시 기존 아코디언 자동 닫힘(단일 열림) */
   const toggle = (id: string) => {
     setOpenId((prev) => (prev === id ? null : id));
   };
 
+  /** 화면 2 / 2-1 / 2-2 뒤로가기 → 연습 목록(화면 1) */
   const handleBack = () => {
-    // 화면 2-1/2-2 → 화면 2 (아코디언 닫기)
-    if (openId) {
-      setOpenId(null);
-      router.replace("/review");
-      return;
-    }
-    // 화면 2 → 연습 탭
     router.push("/practice");
   };
 
+  const handleLockedClick = () => {
+    setToast(LOCKED_TOAST);
+  };
+
   return (
-    <div className="flex h-full flex-col bg-white">
+    <div className="relative flex h-full flex-col bg-white">
+      <Toast message={toast} onClose={clearToast} />
+
       <PageHeader
         title="레벨 및 코스 선택"
         description="학습한 문장을 레벨과 코스별로 모아, 원하는 내용을 쉽게 복습합니다."
@@ -84,13 +91,15 @@ export function ReviewSelect() {
                             {unit.name}
                           </Link>
                         ) : (
-                          <span
+                          <button
                             key={unit.id}
+                            type="button"
+                            onClick={handleLockedClick}
                             className="inline-flex max-w-full items-center gap-1.5 break-keep rounded-xl bg-[#F3F4F6] px-3 py-2 text-[13px] font-medium leading-snug text-[#B0B4BE]"
                           >
                             <LockIcon />
                             {unit.name}
-                          </span>
+                          </button>
                         )
                       )}
                     </div>
@@ -143,16 +152,18 @@ export function ReviewSelect() {
                           <CefrBadge cefr={chapter.cefr} />
                         </Link>
                       ) : (
-                        <div
+                        <button
                           key={chapter.id}
-                          className="flex items-center justify-between gap-3 rounded-xl bg-[#F3F4F6] px-3 py-3"
+                          type="button"
+                          onClick={handleLockedClick}
+                          className="flex w-full items-center justify-between gap-3 rounded-xl bg-[#F3F4F6] px-3 py-3 text-left"
                         >
                           <span className="inline-flex items-center gap-1.5 text-[14px] font-medium leading-snug text-[#B0B4BE]">
                             <LockIcon />
                             {chapter.name}
                           </span>
                           <CefrBadge cefr={chapter.cefr} locked />
-                        </div>
+                        </button>
                       )
                     )}
                   </div>

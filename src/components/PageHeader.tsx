@@ -7,6 +7,8 @@ type PageHeaderProps = {
   description?: string;
   backHref?: string;
   onBack?: () => void;
+  /** close: X 아이콘 (플로우 마지막 단계). back: 뒤로가기 화살표 */
+  action?: "back" | "close";
 };
 
 export function PageHeader({
@@ -14,6 +16,7 @@ export function PageHeader({
   description,
   backHref,
   onBack,
+  action = "back",
 }: PageHeaderProps) {
   const router = useRouter();
 
@@ -33,19 +36,11 @@ export function PageHeader({
     <header className="shrink-0 px-5 pt-[max(1rem,env(safe-area-inset-top))]">
       <button
         type="button"
-        aria-label="뒤로가기"
+        aria-label={action === "close" ? "닫기" : "뒤로가기"}
         onClick={handleBack}
         className="-ml-1 mb-2 flex h-9 w-9 items-center justify-center rounded-full text-speak-ink"
       >
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-          <path
-            d="M12.5 4.5 7 10l5.5 5.5"
-            stroke="currentColor"
-            strokeWidth="1.8"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
+        {action === "close" ? <CloseIcon /> : <BackIcon />}
       </button>
       <h1 className="text-[26px] font-bold tracking-tight text-speak-ink">
         {title}
@@ -56,5 +51,32 @@ export function PageHeader({
         </p>
       ) : null}
     </header>
+  );
+}
+
+function BackIcon() {
+  return (
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+      <path
+        d="M12.5 4.5 7 10l5.5 5.5"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+function CloseIcon() {
+  return (
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+      <path
+        d="M5 5l10 10M15 5 5 15"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+      />
+    </svg>
   );
 }
