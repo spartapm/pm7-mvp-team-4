@@ -110,7 +110,8 @@ export function SentenceListScreen() {
       <Toast message={toast} onClose={clearToast} />
 
       <PageHeader
-        title={`${context.title} [${context.cefr}]`}
+        title={context.title}
+        cefr={context.cefr}
         description={context.keywords}
         backHref={context.closeHref}
         action="close"

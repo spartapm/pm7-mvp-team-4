@@ -1,10 +1,13 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { CefrBadge } from "./CefrBadge";
 
 type PageHeaderProps = {
   title: string;
   description?: string;
+  /** 제목 옆에 CEFR 배지 표시 (3-1/3-2) */
+  cefr?: string;
   backHref?: string;
   onBack?: () => void;
   /** close: X 아이콘 (플로우 마지막 단계). back: 뒤로가기 화살표 */
@@ -14,6 +17,7 @@ type PageHeaderProps = {
 export function PageHeader({
   title,
   description,
+  cefr,
   backHref,
   onBack,
   action = "back",
@@ -42,9 +46,12 @@ export function PageHeader({
       >
         {action === "close" ? <CloseIcon /> : <BackIcon />}
       </button>
-      <h1 className="text-[26px] font-bold tracking-tight text-speak-ink">
-        {title}
-      </h1>
+      <div className="flex flex-wrap items-center gap-2">
+        <h1 className="text-[26px] font-bold tracking-tight text-speak-ink">
+          {title}
+        </h1>
+        {cefr ? <CefrBadge cefr={cefr} /> : null}
+      </div>
       {description ? (
         <p className="mt-2 text-[14px] leading-relaxed text-speak-muted">
           {description}
